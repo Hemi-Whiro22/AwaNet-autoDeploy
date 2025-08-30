@@ -1,6 +1,6 @@
 # AwaNet Render Deployment Plan
 
-projects:
+services:
   - name: AwaNet-Backend
     type: web_service
     env: python
@@ -9,20 +9,15 @@ projects:
     startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
     autoDeploy: true
     envVars:
-      - key: SUPABASE_URL
-        value: <your-supabase-url>
-      - key: SUPABASE_KEY
-        value: <your-service-role-key>
-      - key: OPENAI_API_KEY
-        value: <your-openai-key>
-      - key: BUCKET_NAME
-        value: kaitiaki-taonga
+      SUPABASE_URL: <your-supabase-url>
+      SUPABASE_KEY: <your-service-role-key>
+      OPENAI_API_KEY: <your-openai-key>
+      BUCKET_NAME: kaitiaki_taonga
 
+staticSites:
   - name: AwaNet-React
-    type: static_site
     repo: https://github.com/Hemi-Whiro22/AwaNet-autoDeploy.git
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     envVars:
-      - key: VITE_API_URL
-        value: https://awanet-backend.onrender.com
+      VITE_API_URL: https://awanet-backend.onrender.com
